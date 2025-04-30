@@ -1,20 +1,18 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VignetteController;
+// use App\Http\Controllers\Auth\LoginController;
+// use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Auth\ConfirmPasswordController;
+// use App\Http\Controllers\Auth\VerificationController;
+// use App\Http\Controllers\Auth\ForgotPasswordController;
+// use App\Http\Controllers\Auth\ResetPasswordController;
 
-Route::get('/', [HomeController::class, 'index'])
-    ->name('pages/home');
+// Page d'accueil
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/vignette', function () {
-    return view('pages/voir_vignettes');
-});
-
-Route::get('/login');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Auth::routes();
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Routes des vignettes
+Route::get('/vignettes', [VignetteController::class, 'index'])->name('vignettes.index');
+Route::get('/vignettes/create', [VignetteController::class, 'create'])->name('vignettes.create');

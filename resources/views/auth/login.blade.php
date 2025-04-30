@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('base')
+
+@section('title', 'Connexion')
 
 @section('content')
 <div class="container">
