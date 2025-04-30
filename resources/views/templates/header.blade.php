@@ -1,53 +1,50 @@
-<nav class="bg-gray-900 text-white px-4 py-3">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
-        <a href="{{ url('/') }}" class="text-xl font-semibold">Accueil</a>
-
-        <button class="text-white lg:hidden" onclick="document.getElementById('navbarNav').classList.toggle('hidden')">
-            <!-- Hamburger Icon -->
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}">Accueil</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div id="navbarNav" class="w-full lg:flex lg:items-center lg:w-auto hidden">
-            <ul class="flex flex-col lg:flex-row lg:space-x-6 mt-4 lg:mt-0">
-                <li><a href="{{ route('vignettes.index') }}" class="hover:text-gray-300">Liste des Vignettes</a></li>
-                <li><a href="{{ route('vignettes.create') }}" class="hover:text-gray-300">Créer une Vignette</a></li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('vignettes.index') }}">Liste des Vignettes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('vignettes.create') }}">Créer une Vignette</a>
+                </li>
             </ul>
 
-            <ul class="flex flex-col lg:flex-row lg:space-x-4 mt-4 lg:mt-0 lg:ml-auto">
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 @guest
                     @if (Route::has('login'))
-                        <li><a href="{{ route('login') }}" class="hover:text-gray-300">Se connecter</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
+                        </li>
                     @endif
+
                     @if (Route::has('register'))
-                        <li><a href="{{ route('register') }}" class="hover:text-gray-300">S'inscrire</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">S'inscrire</a>
+                        </li>
                     @endif
                 @else
-                    <li class="relative group">
-                        <button class="hover:text-gray-300 flex items-center gap-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.584l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                        <ul
-                            class="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded shadow-lg hidden group-hover:block">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
-                                <a href="{{ route('logout') }}"
-                                   class="block px-4 py-2 hover:bg-gray-100"
+                                <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Déconnexion
                                 </a>
                             </li>
                         </ul>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            @csrf
-                        </form>
                     </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 @endguest
             </ul>
         </div>
