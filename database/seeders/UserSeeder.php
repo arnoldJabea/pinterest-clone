@@ -10,12 +10,14 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'aroljabea71@gmail.com',
-            'password' => Hash::make('password'),
-            'magic_number' => 1000001,
-            'role' => 'ADMIN',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'aroljabea71@gmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('password'),
+                'magic_number' => 1000001,
+                'role' => 'ADMIN',
+            ]
+        );
     }
 }
