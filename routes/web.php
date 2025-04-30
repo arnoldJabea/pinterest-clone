@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -7,6 +8,9 @@ use App\Http\Middleware\AdminMiddleware;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Page d'accueil
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,8 +32,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 });
-
-
-
 
 require __DIR__ . '/auth.php';
