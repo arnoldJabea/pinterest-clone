@@ -1,13 +1,12 @@
-// Tailwind
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+// @import url('https://fonts.bunny.net/css?family=Nunito');
+// @import 'variables';
 
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-// Variables
-@import 'variables';
-
-// Bootstrap
-// @import 'bootstrap/scss/bootstrap';
+// @layer base {
+//   html {
+//     font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+//   }
+// }

@@ -8,11 +8,11 @@
     <!-- CSRF Token -->
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 
-    @vite('resources/sass/app.scss')
+    @vite('resources/css/app.css')
 </head>
 
 <body>
-    <nav class="bg-gray-900 text-white">
+    <nav class="bg-gray-900 text-white px-4 py-3">
         @include('templates/header')
     </nav>
     <div class="container">
