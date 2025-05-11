@@ -6,6 +6,7 @@ use App\Models\Card;
 use App\Models\Category;
 use App\Models\CardSize;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class PublicCardController extends Controller
 {
@@ -28,7 +29,8 @@ class PublicCardController extends Controller
         $cards = $query->get();
         $categories = Category::all();
         $sizes = CardSize::all();
+        $setting = Setting::first();
 
-        return view('public.index', compact('cards', 'categories', 'sizes'));
+        return view('public.index', compact('cards', 'categories', 'sizes','setting'));
     }
 }
