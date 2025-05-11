@@ -11,6 +11,22 @@ use Illuminate\Support\Facades\Storage;
 
 class CardController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/cards",
+     *     tags={"Cards"},
+     *     summary="Récupère la liste des cartes de l'utilisateur authentifié",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Succès",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Card")
+     *         )
+     *     )
+     * )
+     */
     public function index()
     {
         $cards = Card::where('user_id', Auth::id())->latest()->get();
@@ -24,6 +40,23 @@ class CardController extends Controller
         return view('cards.create', compact('categories', 'sizes'));
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/cards",
+     *     tags={"Cards"},
+     *     summary="Crée une nouvelle carte",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Card")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Carte créée",
+     *         @OA\JsonContent(ref="#/components/schemas/Card")
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -64,13 +97,34 @@ class CardController extends Controller
 
     public function edit(Card $card)
     {
-        $this->authorize('update', $card); // optionnel si tu veux restreindre
+        $this->authorize('update', $card);
 
         $categories = Category::all();
         $sizes = CardSize::all();
         return view('cards.edit', compact('card', 'categories', 'sizes'));
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/cards/{id}",
+     *     tags={"Cards"},
+     *     summary="Met à jour une carte existante",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id", in="path", required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Card")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Carte mise à jour",
+     *         @OA\JsonContent(ref="#/components/schemas/Card")
+     *     )
+     * )
+     */
     public function update(Request $request, Card $card)
     {
         $this->authorize('update', $card);
@@ -107,6 +161,22 @@ class CardController extends Controller
         return redirect()->route('cards.index')->with('success', 'Carte mise à jour.');
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/cards/{id}",
+     *     tags={"Cards"},
+     *     summary="Supprime (soft delete) une carte",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(
+     *         name="id", in="path", required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Carte supprimée"
+     *     )
+     * )
+     */
     public function destroy(Card $card)
     {
         $this->authorize('delete', $card);

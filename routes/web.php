@@ -11,11 +11,14 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminSettingController;
 
+
 Route::get('/', function () {
     return redirect('/explore');
 });
 
+
 Route::get('/explore', [PublicCardController::class, 'index'])->name('explore');
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -23,12 +26,15 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
     Route::resource('cards', CardController::class);
 });
+
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -39,6 +45,8 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::delete('/cards/{card}', [AdminCardController::class, 'destroy'])->name('admin.cards.destroy');
 });
 
+
+
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [AdminCategoryController::class, 'store'])->name('categories.store');
@@ -46,6 +54,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admi
     Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
     Route::resource('categories', AdminCategoryController::class);
 });
+
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
@@ -59,6 +68,11 @@ Route::middleware(['auth', AdminMiddleware::class])
 
         Route::post('/settings', [AdminSettingController::class, 'update'])
             ->name('settings.update');
-});
+    });
+
+
+
+
+
 
 require __DIR__ . '/auth.php';
