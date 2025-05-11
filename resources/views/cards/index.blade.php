@@ -36,19 +36,15 @@
                 </video>
             </div>
             @endif
-            <div class="bg-white shadow p-4 rounded mb-4">
-                <h3 class="text-lg font-bold">{{ $card->title }}</h3>
-                <p>{{ $card->description }}</p>
 
-                <div class="mt-2 flex space-x-2">
-                    <a href="{{ route('cards.edit', $card->id) }}" class="text-blue-600 hover:underline">Modifier</a>
+            <div class="mt-2 flex space-x-4">
+                <a href="{{ route('cards.edit', $card->id) }}" class="text-blue-600 hover:underline">Modifier</a>
 
-                    <form action="{{ route('cards.destroy', $card->id) }}" method="POST" onsubmit="return confirm('Confirmer la suppression ?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
-                    </form>
-                </div>
+                <form action="{{ route('cards.destroy', $card->id) }}" method="POST" onsubmit="return confirm('Confirmer la suppression ?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
+                </form>
             </div>
         </div>
         @empty
